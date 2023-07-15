@@ -13,6 +13,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   double _radius = 100;
 
+  final Tween<double> backGroundscale = Tween<double>(
+    begin: 0.0,
+    end: 1.0,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +35,17 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget pageBackground() {
-    return Container(color: Colors.blue);
+    return TweenAnimationBuilder(
+        curve: Curves.easeInOutCubicEmphasized,
+        tween: backGroundscale,
+        duration: Duration(seconds: 1),
+        builder: (context, double _scale, _child) {
+          return Transform.scale(
+            scale: _scale,
+            child: _child,
+          );
+        },
+        child: Container(color: Colors.blue));
   }
 
   Widget circularAnimationButton() {
